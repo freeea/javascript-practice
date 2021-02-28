@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>あなたのラッキーナンバー</title>
-<!--	①、0～9の好きな数字を4つ選ぶ。			
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あなたのラッキーナンバー</title>
+  <!--	①、0～9の好きな数字を4つ選ぶ。			
 		★この数字を覚えておいてね！			
-								
+		
 		②、1で選んだ一番大きい数字、小さい数字を入れてね！！		(substr関数)
 		（エリアA）substr関数でfromとlengthを取得し、
 
 		③、残った2つの数字を入れてね！！							(keydownで合計を出す)
 		（エリアB）									
-												
+		
 		④、(6か7)好きな方を選んでね！！							(inputイベント)
 		（terms1）									
 		
@@ -29,274 +30,272 @@
 		※CSSはセレクタで指定（！とりあえず意図する動作になったら分離バージョンも作る）
 		
 		
-		
 		**********（memo）***********************
 			①で直接4桁を選択し、それが一旦htmlに出てくるようにする
 			
- -->
-	
-	
-	
-	<style>
+-->
+  <style>
+    body {
+      display: inline-block;
+      text-align: center;
+      background-color: rgba(50, 121, 0, 0.679);
+    }
 
-	body  {
-		display: inline-block;
-		text-align: center;
-		background-color: rgba(50, 121, 0, 0.679);
+    #container {
+      margin: 20px 200px;
+      padding: 25px;
+      background-color: rgba(219, 255, 193, 0.939);
+      border-top: solid 3px rgba(252, 193, 0, 0.919);
+      border-bottom: solid 3px rgba(252, 193, 0, 0.919);
+    }
 
- /* 	height:448px;
- 		width:400px;
-  		color: white;
-		background-color:#66a3ff;
- 		background-image: repeating-linear-gradient(transparent, transparent 50px, purple 50px, purple 53px, transparent 53px, transparent 63px, purple 63px, purple 66px, transparent 66px, transparent 116px, rgba(0,0,0,.5) 116px, rgba(0,0,0,.5) 166px, rgba(255,255,255,.2) 166px, rgba(255,255,255,.2) 169px, rgba(0,0,0,.5) 169px, rgba(0,0,0,.5) 179px, rgba(255,255,255,.2) 179px, rgba(255,255,255,.2) 182px, rgba(0,0,0,.5) 182px, rgba(0,0,0,.5) 232px, transparent 232px),  
- 		 repeating-linear-gradient(270deg, transparent, transparent 50px, purple 50px, purple 53px, transparent 53px, transparent 63px, purple 63px, purple 66px, transparent 66px, transparent 116px, rgba(0,0,0,.5) 116px, rgba(0,0,0,.5) 166px, rgba(255,255,255,.2) 166px, rgba(255,255,255,.2) 169px, rgba(0,0,0,.5) 169px, rgba(0,0,0,.5) 179px, rgba(255,255,255,.2) 179px, rgba(255,255,255,.2) 182px, rgba(0,0,0,.5) 182px, rgba(0,0,0,.5) 232px, transparent 232px);
+    .lin {
+      position: relative;
+      padding: 0.3em;
+    }
 
-}
-*/
-	}
-	#container {
-		margin: 20px 200px;
-		padding: 25px;
-		background-color: rgba(219, 255, 193, 0.939);
+    .lin:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 7px;
+      background: repeating-linear-gradient(-45deg, skyblue, skyblue 2px, white 2px, white 4px);
+    }
 
-		border-top: solid 3px rgba(252, 193, 0, 0.919);
-		border-bottom: solid 3px rgba(252, 193, 0, 0.919);
+    h1 {
+      font-size: 23px;
+      color: #5492cf
+    }
 
-		}
-		.lin { 
-			position: relative;
-			padding: 0.3em;
-			}
-		.lin:after {
-			content: "";
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			width: 100%;
-			height: 7px;
-			background: repeating-linear-gradient(-45deg, skyblue, skyblue 2px, white 2px, white 4px);
-		}
-		h1 {
-			font-size: 23px;
-			color: #5492cf
-		}
-		h2 {
-			padding: -2px 0px 1.5px 0;
-			margin: 40px 5px 5px 0px;
-		}
-		h3 {
-			margin: auto;
-			
-		}
-		.bgg h3 {
-			color :rgb(3, 87, 3);	
-			margin: 5px 15px;
-		}
-		.bgg {
-			background: rgb(169, 255, 181);
-			border: solid 2.5px rgb(3, 87, 3);
-			border-radius: 10px;/*角の丸み*/
-			width: 290px;
-			font-size: 14px;
-			margin: 10px 20px;
-		}
-		.box1 {
-			padding: 0.1px 15px;
-		    margin: 2px 10px;
-		    color: #2c2c2f;
-		    background: #cde4ff;
-		    border-top: solid 6px #5492f0;
-		    border-bottom: solid 6px #5492cf;
-		}
-		p {	
-			color : blue;
-			background-color: #cde4ff;
-		}
-		p span {	
-			color :red;
-		}
-		.inputNum {
-			background:rgb(223, 245, 189);
-			width: 40px;
-			margin: 15px 6px 10px 0.1px;
-		}
-		.inputNum2 {
-			background: #cde4ff;
-		}
+    h2 {
+      padding: -2px 0px 1.5px 0;
+      margin: 40px 5px 5px 0px;
+    }
 
-	</style>
+    h3 {
+      margin: auto;
+    }
+
+    .bgg h3 {
+      color: rgb(3, 87, 3);
+      margin: 5px 15px;
+    }
+
+    .bgg {
+      background: rgb(169, 255, 181);
+      border: solid 2.5px rgb(3, 87, 3);
+      border-radius: 10px;
+      /*角の丸み*/
+      width: 290px;
+      font-size: 14px;
+      margin: 10px 20px;
+    }
+
+    .box1 {
+      padding: 0.1px 15px;
+      margin: 2px 10px;
+      color: #2c2c2f;
+      background: #cde4ff;
+      border-top: solid 6px #5492f0;
+      border-bottom: solid 6px #5492cf;
+    }
+
+    p {
+      color: blue;
+      background-color: #cde4ff;
+    }
+
+    p span {
+      color: red;
+    }
+
+    .inputNum {
+      background: rgb(223, 245, 189);
+      width: 40px;
+      margin: 15px 6px 10px 0.1px;
+    }
+
+    .inputNum2 {
+      background: #cde4ff;
+    }
+  </style>
 </head>
+
 <body>
-	<div id="container">
-		<div class="box1"><h1>あなたのラッキーナンバー</h1></div>
+  <div id="container">
+    <div class="box1">
+      <h1>あなたのラッキーナンバー</h1>
+    </div>
 
-		<div class="bgg"><h3>①0～9の好きな数字を4つ選ぶ。</h3></div>
-		<h2><span class="lin">1・2・3・4・5・6・7・8・9</span></h2>			
-		
-		<p><span class="red">★</span>選んだ4つの数字を覚えておいてね！！</p>
-		
-		<div class="bgg"><h3>②1で選んだ一番小さい数字と、<br>大きい数字を入れてね！！</h3></div>
-		<div>
-			<input id="min" class="inputNum" type="text" placeholder="min" maxlength="1">
-			<input id="max" class="inputNum" type="text" placeholder="max" maxlength="1">
-		</div>
-		<button>😺<span id="result1" onclick="func1()">ファイナルアンサー？</span></button>
-		<!--change + clickになっちゃう…？-->
-	
-		<div class="bgg"><h3>③残った2つの数字はどれかな？</h3></div>
-		<input id="aaa" class="inputNum" type="number" >
-		<input id="bbb" class="inputNum" type="number" ><br>
-		<button>😺<span ondblclick="func2()" id="result2" >数字を選んだら、ダブルクリックしてね！</span></button>
-			
-			
+    <div class="bgg">
+      <h3>①0～9の好きな数字を4つ選ぶ。</h3>
+    </div>
+    <h2><span class="lin">1・2・3・4・5・6・7・8・9</span></h2>
 
-		
-		<div class="bgg"><h3>④好きな方を選んでね！！</h3></div>
-		<select  name="si" id="si" class="inputNum">
-		<!-- optionタグ…selectタグ内で使う要素。 -->
-			<option value=""></option>▽</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-		</select><br>
-		😺<button id="result3">ここを押すのじゃ！</button>
-		
-		
-		<div class="bgg"><h3>⑤乱数を取得するよ！！</h3></div>
-		<button id="ccc" class="inputNum2" onclick="func5()">🐡click me!!</button><br>
-		😺<span id="result4"></span><br>
-		
-		<!-- <button onclick="substr()">計算</button> -->
-		<div class="box2">
-		<button id="nom" class="inputNum2" onclick="func6()">あなたのラッキーNoは…</button><br>
-		😺<span id="result5"></span><br>
-		</div>
+    <p><span class="red">★</span>選んだ4つの数字を覚えておいてね！！</p>
 
-	</div>
+    <div class="bgg">
+      <h3>②1で選んだ一番小さい数字と、<br>大きい数字を入れてね！！</h3>
+    </div>
+    <div>
+      <input id="min" class="inputNum" type="text" placeholder="min" maxlength="1">
+      <input id="max" class="inputNum" type="text" placeholder="max" maxlength="1">
+    </div>
+    <button>😺<span id="result1" onclick="func1()">ファイナルアンサー？</span></button>
+    <!--change + clickになっちゃう…？-->
+
+    <div class="bgg">
+      <h3>③残った2つの数字はどれかな？</h3>
+    </div>
+    <input id="aaa" class="inputNum" type="number">
+    <input id="bbb" class="inputNum" type="number"><br>
+    <button>😺<span ondblclick="func2()" id="result2">数字を選んだら、ダブルクリックしてね！</span></button>
+
+    <div class="bgg">
+      <h3>④好きな方を選んでね！！</h3>
+    </div>
+    <select name="si" id="si" class="inputNum">
+      <!-- optionタグ…selectタグ内で使う要素。 -->
+      <option value=""></option>▽</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select><br>
+    😺<button id="result3">直感で選ぶのじゃ！</button>
+
+    <div class="bgg">
+      <h3>⑤乱数を取得するよ！！</h3>
+    </div>
+    <button id="ccc" class="inputNum2" onclick="func5()">🐡click me!!</button><br>
+    😺<span id="result4"></span><br>
+
+    <!-- <button onclick="substr()">計算</button> -->
+    <div class="box2">
+      <button id="nom" class="inputNum2" onclick="func6()">あなたのラッキーNoは…</button><br>
+      😺<span id="result5"></span><br>
+    </div>
+
+  </div>
 </body>
 <script>
+  function func1() {
+    let str = "0123456789";
+    let min = document.getElementById("min").value;
+    let max = document.getElementById("max").value;
+    console.log(min);
+    let result1 = str.substr(min, max);
 
-	function func1() {
-		let str = "0123456789";
-		let min = document.getElementById("min").value;
-		let max = document.getElementById("max").value;
-		console.log(min);
-		let result1 = str.substr(min, max);
-	
-		
-		document.getElementById("result1").innerHTML = result1;
+    document.getElementById("result1").innerHTML = result1;
 
-		let result = parseInt(result1);
-		console.log(result1);
-	}
+    var result = parseInt(result1);
+    console.log(result1);
+  }
 
-	/*	if(min <= 0 || max <= 0){
-		}
-		else if(min >= 0 || max >= 0){
-		document.getElementById("result").innerHTML = "…やる気ある？";
-		console.log(result);
-		}
+  /*	if(min <= 0 || max <= 0){
+    }else if(min >= 0 || max >= 0){
+      document.getElementById("result").innerHTML = "…やる気ある？";
+      console.log(result);
+    }else if(min == Number || max == Number){
+    //document.getElementById("result").innerHTML = "NaNだよ…ちっ";
+    }else{
+      document.getElementById("result").innerHTML = "NaNだよ…ちっ";
+    }
+  }*/
 
-		//else if(min == Number || max == Number){
-		//document.getElementById("result").innerHTML = "NaNだよ…ちっ";
-		//}
-		else{
-		document.getElementById("result").innerHTML = "NaNだよ…ちっ";
-		}
-	}
+  /*		★このケースだと、値が取得した時点ではstringなのでそもそも…
+    なんかよく見たらstringで計算されてるし、（初期値が自動的にstringになるのかな…？）
+    計算前に型変換をして、
+    if文を使うなら…でもtextだとそもそも入力した値はstringになるわけで…
+    入力タイプをnumberで、▼負の整数を入力条件にすればとりあえずこのままif文は組み込める？
+    ▼number型にしたらイベントはchange？でもchangeにしたら型変換前にイベントが…？
+    ▼▼aaaとbbbを入力し、ボタンクリックで発動させればいける…？
 
-	*/
+  */
+  function func2() {
+    //133,134行目のid名aaaとbbbに入力された値を取得する。
+    let aaa = document.getElementById("aaa").value;
+    let bbb = document.getElementById("bbb").value;
 
-	/*		★このケースだと、値が取得した時点ではstringなのでそもそも…
-		なんかよく見たらstringで計算されてるし、（初期値が自動的にstringになるのかな…？）
-		計算前に型変換をして、
-		if文を使うなら…でもtextだとそもそも入力した値はstringになるわけで…
-		入力タイプをnumberで、▼負の整数を入力条件にすればとりあえずこのままif文は組み込める？
-		▼number型にしたらイベントはchange？でもchangeにしたら型変換前にイベントが…？
-		▼▼aaaとbbbを入力し、ボタンクリックで発動させればいける…？
+    let aaa2 = parseInt(aaa);
+    let bbb2 = parseInt(bbb);
 
-	*/
-	function func2() {
-		//133,134行目のid名aaaとbbbに入力された値を取得する。
-		let aaa = document.getElementById("aaa").value;	
-		let bbb = document.getElementById("bbb").value;
+    //console.log(typeof aaa2);
+    //console.log(typeof bbb2);
+    //これも再代入と認められるっぽい？これ消すとstring型になりました
+    console.log(aaa2);
+    console.log(bbb2);
 
-		let aaa2 = parseInt(aaa);
-		let bbb2 = parseInt(bbb);
+    //もしaaaかbbbが▼負の整数の場合、テキストを書き換える。
+    //↓namber型の条件判定できなかった。。
+    //if (typeof aaa2 === Number ||typeof bbb2 === Number){ 
+    if (aaa2 <= 0 || bbb2 <= 0) {
+      console.log(typeof aaa2);
+      console.log(typeof bbb2);
+      document.getElementById("result2").innerHTML = "真面目にやってよ！";
+    }
+    else if (aaa2 >= 0 || bbb2 >= 0) {
+      var result2 = (aaa2 + bbb2);
+      console.log(aaa2, bbb2);
+      console.log(result2);
 
+      document.getElementById("result2").innerHTML = result2;
+    }
+  }
+  let select = document.querySelector('[name="si"]');
+  select.onchange = event => {
+    var result3 = parseInt(select.value);
+    document.getElementById("result3").innerHTML = result3;
+    console.log(result3);
+  }
 
-		//console.log(typeof aaa2);
-		//console.log(typeof bbb2);
-		//これも再代入と認められるっぽい？これ消すとstring型になりました
-		console.log(aaa2);
-		console.log(bbb2);
+  /*var si = document.getElementById("si");
+    document.getElementById(si.value);
 
-		//もしaaaかbbbが▼負の整数の場合、テキストを書き換える。
-		//↓namber型の条件判定できなかった。。
-		//if (typeof aaa2 === Number ||typeof bbb2 === Number){ 
-		if(aaa2 <= 0 || bbb2 <= 0){
-			console.log(typeof aaa2);	
-			console.log(typeof bbb2);
-			document.getElementById("result2").innerHTML = "真面目にやってよ！";
-		}
-		else if(aaa2 >= 0 || bbb2 >= 0){
-			let result2 =(aaa2 + bbb2);
-			console.log(aaa2, bbb2);
-			console.log(result2);
-				
-			document.getElementById("result2").innerHTML = result2;		
-		}
-	}	
+    let result3 = (si.value);
+  */
 
-	let select = document.querySelector('[name="si"]');
-	select.onchange = event => {
-	let result3 = parseInt(select.value);
-	document.getElementById("result3").innerHTML = result3;
-	console.log(result3);
-	}
+  /*let form = document.forms[0];
+    let selectbox = form.selectbox;
 
-	/*		var si = document.getElementById("si");
-		document.getElementById(si.value);
-		
-		let result3 = (si.value);
-	*/		
+    selectbox.addEventListener("change",()=>{
+      console.log(selectbox.value);
+    });
+    let si = document.getElementById("si");
+    let se = document.getElementById("se");
+    console.log(si.value);
 
-	/*		let form = document.forms[0];
-		let selectbox = form.selectbox;
+    let result3 = parseInt(si) + parseInt(se);
+    document.getElementById("result3").innerHTML = result3;
+  */
 
-		selectbox.addEventListener("change",()=>{
-			console.log(selectbox.value);
-		},false);
-		let si = document.getElementById("si");
-		let se = document.getElementById("se");
-		console.log(si.value);
+  function func5() {
+    let ccc = document.getElementById("ccc").value;
 
-		let result3 = parseInt(si) + parseInt(se);
-		document.getElementById("result3").innerHTML = result3;
-	*/
-	
-	function func5() {
-		let ccc = document.getElementById("ccc").value;
-		
-		let result4 = (Math.floor(Math.random() * 9) + 1);
-		document.getElementById("result4").innerHTML = result4;
-		console.log(result4);
-	}
-	
-	function func6() {
-		//let result5 = parseInt(result1 + result2 + result3 + result4);　←これだと初期値のstrigで判定される、、
-		console.log( typeof Number (result1));	
-		console.log( typeof Number (result2));
-		console.log( typeof Number (result3));
-		console.log( typeof Number (result4));
-		console.log(result1);
-		console.log(result2);
-		console.log(result3);
-		console.log(result4);
-		let result5 = (result1 + result2 + result3 + result4);
+    var result4 = (Math.floor(Math.random() * 9) + 1);
+    document.getElementById("result4").innerHTML = result4;
+    console.log(result4);
+  }
 
-		document.getElementById("result5").innerHTML = result5;
-		
-	}
+  function func6() {
+    //let result5 = parseInt(result1 + result2 + result3 + result4);　←これだと初期値のstrigで判定される、、
 
+    parseInt(result1.value);
+    parseInt(result2.value);
+    parseInt(result3.value);
+    parseInt(result4.value);
+
+    console.log(result1);
+    console.log(result2);
+    console.log(result3);
+    console.log(result4);
+    var result5 = result1 + result2 + result3 + result4;
+
+    console.log(typeof result1 == "number")
+
+    document.getElementById("result5").innerHTML = result5;
+    console.log(result5);
+  }
 </script>
-<html>
+
+</html>
